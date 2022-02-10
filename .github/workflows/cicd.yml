@@ -43,8 +43,8 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: homervt/demo-github-actions:latest
-          cache-from: type=registry,ref=homervt/demo-github-actions:latest
+          tag_with_ref: true
+          cache-from: type=registry,ref=homervt/demo-github-actions
           cache-to: type=inline
       
       - name: Deploy Image
