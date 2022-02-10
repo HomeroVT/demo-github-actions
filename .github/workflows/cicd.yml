@@ -70,8 +70,8 @@ jobs:
           script: |
             hostname
             chmod +x ./delete_images.sh
-            .delete_images.sh
-          shell: bash
+            ./delete_images.sh
+
              
 
 
