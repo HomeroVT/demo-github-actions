@@ -71,10 +71,5 @@ jobs:
             hostname
             chmod +x ./delete_images.sh
             ./delete_images.sh
-            docker images
-
-             
-
-
-# docker pull homervt/demo-github-actions:latest
-# docker run -d --rm --name homertest -p 8080:8080 homervt/demo-github-actions:latest
+            docker pull homervt/demo-github-actions:latest
+            docker run -d --rm --name homertest -p 8080:8080 homervt/demo-github-actions:latest
