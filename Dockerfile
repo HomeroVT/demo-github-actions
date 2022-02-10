@@ -1,28 +1,37 @@
-# Multistage docker
-FROM golang:1.16-alpine AS builder
+FROM node:14-alpine
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN npm install
+COPY . ./
+EXPOSE 3000
+CMD "npm" "start"
 
-WORKDIR /src
 
-# COPY go.mod ./
-# COPY go.sum ./
+# # Multistage docker
+# FROM golang:1.16-alpine AS builder
 
-# Download all dependencies. Dependencies will be cached if the go.mod and go.sum files are not changed
-RUN go mod download || true
+# WORKDIR /src
 
-# Copy the source from the current directory to the Working Directory inside the container
-COPY . .
+# # COPY go.mod ./
+# # COPY go.sum ./
 
-RUN CGO_ENABLED=0 go build -o /bin/demo
+# # Download all dependencies. Dependencies will be cached if the go.mod and go.sum files are not changed
+# RUN go mod download || true
 
-FROM alpine:3.10
+# # Copy the source from the current directory to the Working Directory inside the container
+# COPY . .
 
-RUN apk --no-cache add ca-certificates tzdata htop bash
-# # Change timezone to Asia/Ho_Chi_Minh
-# RUN rm -rf /etc/localtime\
-#     && cp /usr/share/zoneinfo/Asia/Ho_Chi_Minh /etc/localtime
+# RUN CGO_ENABLED=0 go build -o /bin/demo
 
-COPY --from=builder /bin/demo /bin/demo
+# FROM alpine:3.10
 
-EXPOSE 8081
+# RUN apk --no-cache add ca-certificates tzdata htop bash
+# # # Change timezone to Asia/Ho_Chi_Minh
+# # RUN rm -rf /etc/localtime\
+# #     && cp /usr/share/zoneinfo/Asia/Ho_Chi_Minh /etc/localtime
 
-ENTRYPOINT ["/bin/demo"]
+# COPY --from=builder /bin/demo /bin/demo
+
+# EXPOSE 8081
+
+# ENTRYPOINT ["/bin/demo"]
