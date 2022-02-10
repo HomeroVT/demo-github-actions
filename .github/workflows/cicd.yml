@@ -45,7 +45,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tag_with_ref: true
-          cache-from: type=registry,ref=homervt/demo-github-actions
+          cache-from: type=registry,ref=homervt/demo-github-actions:latest
           cache-to: type=inline
       
       - name: Deploy Image
