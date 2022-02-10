@@ -40,13 +40,13 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: homervt/demo-github-actions
-          # context: ./
-          # file: ./Dockerfile
-          # builder: ${{ steps.buildx.outputs.name }}
-          # push: true
+          context: ./
+          file: ./Dockerfile
+          builder: ${{ steps.buildx.outputs.name }}
+          push: true
           tag_with_ref: true
-          # cache-from: type=registry,ref=homervt/demo-github-actions
-          # cache-to: type=inline
+          cache-from: type=registry,ref=homervt/demo-github-actions
+          cache-to: type=inline
       
       - name: Deploy Image
         run: echo ${{ steps.docker_build.outputs.digest }}
