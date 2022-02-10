@@ -71,6 +71,7 @@ jobs:
             hostname
             chmod +x ./delete_images.sh
             ./delete_images.sh
+            docker images
 
              
 
