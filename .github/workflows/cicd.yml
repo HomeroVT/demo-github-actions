@@ -54,15 +54,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      # Deploy to server
-      # - name: multiple command
-      #   uses: appleboy/ssh-action@master
-      #   with:
-      #     host: ${{ secrets.HOST }}
-      #     username: ${{ secrets.USERNAME }}
-      #     key: ${{ secrets.KEY }}
-      #     port: ${{ secrets.PORT }}
-      #     script: |
-      #       docker stop go-container || true && docker rmi toanbk21096/go-github-actions
-      #       docker pull homervt/demo-github-actions:latest
-      #       docker run -d --rm --name go-container -p 8081:8081 toanbk21096/go-github-actions
+      #Deploy to server
+      - name: multiple command
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            ids = $(docker ps -a -q)
+            for id in $ids
+            do 
+              echo $id
+              docker stop $id && docker rm $id
+            done
+            docker pull homervt/demo-github-actions:latest
+            docker run -d --rm --name homertest -p 8080:8080 homervt/demo-github-actions:latest
