@@ -1,37 +1,19 @@
-FROM node:14-alpine
+FROM node:16
+
+# Create app directory
 WORKDIR /usr/src/app
+
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
 COPY package*.json ./
+
 RUN npm install
-COPY . ./
-EXPOSE 3000
-CMD "npm" "start"
+# If you are building your code for production
+# RUN npm ci --only=production
 
+# Bundle app source
+COPY . .
 
-# # Multistage docker
-# FROM golang:1.16-alpine AS builder
-
-# WORKDIR /src
-
-# # COPY go.mod ./
-# # COPY go.sum ./
-
-# # Download all dependencies. Dependencies will be cached if the go.mod and go.sum files are not changed
-# RUN go mod download || true
-
-# # Copy the source from the current directory to the Working Directory inside the container
-# COPY . .
-
-# RUN CGO_ENABLED=0 go build -o /bin/demo
-
-# FROM alpine:3.10
-
-# RUN apk --no-cache add ca-certificates tzdata htop bash
-# # # Change timezone to Asia/Ho_Chi_Minh
-# # RUN rm -rf /etc/localtime\
-# #     && cp /usr/share/zoneinfo/Asia/Ho_Chi_Minh /etc/localtime
-
-# COPY --from=builder /bin/demo /bin/demo
-
-# EXPOSE 8081
-
-# ENTRYPOINT ["/bin/demo"]
+EXPOSE 8080
+CMD [ "node", "server.js" ]
