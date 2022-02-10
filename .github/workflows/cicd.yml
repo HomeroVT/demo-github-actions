@@ -58,7 +58,7 @@ jobs:
       #     file: ./Dockerfile
       #     builder: ${{ steps.buildx.outputs.name }}
       #     push: true
-      #     tags: homerovt/demo-github-actions:latest
-      #     cache-from: type=registry,ref=homerovt/demo-github-actions:latest
+      #     tags: homervt/demo-github-actions:latest
+      #     cache-from: type=registry,ref=homervt/demo-github-actions:latest
       #     cache-to: type=inline
 
