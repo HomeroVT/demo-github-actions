@@ -69,8 +69,9 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             hostname
-            pwd
-            ls
+            chmod +x ./delete_images.sh
+            .delete_images.sh
+          shell: bash
              
 
 
